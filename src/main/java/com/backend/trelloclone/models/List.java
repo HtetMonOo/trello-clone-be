@@ -8,9 +8,9 @@ import java.util.Set;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
-public class List {
+public class List extends MainModel{
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue (strategy = GenerationType.AUTO)
     private Long id;
     private String title;
     private Integer position;

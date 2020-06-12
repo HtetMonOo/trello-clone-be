@@ -6,6 +6,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.Table;
 import java.util.List;
 
 @RestController
@@ -17,30 +18,29 @@ public class AccountController {
     AccountRepository accountRepository;
 
     @GetMapping
-    public List<Account> getAll(){
+    public List<Account> getAll() {
         return accountRepository.findAll();
     }
 
     @GetMapping("{username}")
-    public Account getById(@PathVariable String username){
+    public Account getById(@PathVariable String username) {
         return accountRepository.getOne(username);
     }
 
-    @PostMapping
-    public Account save(@RequestBody Account account){
+    @PostMapping()
+    public Account save(@RequestBody Account account) {
         return accountRepository.saveAndFlush(account);
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public Account update(@RequestBody Account account){
-        Account oldAcc = accountRepository.getOne(account.getUsername());
-        BeanUtils.copyProperties(account, oldAcc, "id","username","verified");
-        return accountRepository.saveAndFlush(oldAcc);
+    public Account update(@RequestBody Account account) {
+        Account oldAccount = accountRepository.getOne(account.getUsername());
+        BeanUtils.copyProperties(account, oldAccount, "id", "username", "verified");
+        return accountRepository.saveAndFlush(oldAccount);
     }
 
     @RequestMapping(value = "{username}", method = RequestMethod.DELETE)
-    public void delete(@PathVariable String username){
+    public void delete(@PathVariable String username) {
         accountRepository.deleteById(username);
     }
-
 }

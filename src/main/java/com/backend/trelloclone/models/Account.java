@@ -7,11 +7,11 @@ import java.util.Date;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
-public class Account {
+public class Account extends MainModel{
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     private String username;
     private String name;
     private String email;
